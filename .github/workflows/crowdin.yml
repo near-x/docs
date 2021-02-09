@@ -1,0 +1,24 @@
+name: Crowdin Action
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  synchronize-with-crowdin:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: crowdin action
+      uses: crowdin/github-action@1.0.18
+      with:
+        upload_translations: true
+        download_translations: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.7f86dfb3e545981e8a4362dd328ad463e9016bd3 }}
+        CROWDIN_PROJECT_ID: ${{ secrets.440874 }}
+        CROWDIN_PERSONAL_TOKEN: ${{ secrets.2ae6f397c7cbbb39fada8c06836bb3d71a253f208b53b98295a1a7ba14535768699dc1f49809122e }}
