@@ -4,7 +4,7 @@ title: Getting Started
 sidebar_label: Getting Started
 ---
 
-Here's a quick overview of essential resources you will use when developing on NEAR.
+以下是你基于NEAR开发时会用到的、必不可少的资源的概览。
 
 | Name                                                   | Description                                                                                              |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------- |
