@@ -18,11 +18,12 @@ const siteConfig = {
     { doc: "tokens/token-custody", label: "Tokens"},
     { doc: "validator/staking-overview", label: "Stake" },
     { doc: "roles/integrator/exchange-integration", label: "Integrate" },
-    {
-      href: "https://github.com/near/docs/issues",
-      label: "GitHub",
-      external: true,
-    },
+    // {
+    //   href: "https://github.com/near/docs/issues",
+    //   label: "GitHub",
+    //   external: true,
+    // },
+    { languages: true },
   ],
 
   algolia: {
