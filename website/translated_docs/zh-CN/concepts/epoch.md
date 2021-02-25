@@ -1,14 +1,14 @@
 ---
 id: epoch
-title: Epoch
-sidebar_label: Epoch
+title: 纪元
+sidebar_label: 纪元
 ---
 
-> An **epoch** is a unit of time when validators of the network remain constant.
->
-> - Both `testnet` and `mainnet` have an epoch duration of ~12 hours or 43,200 seconds to be exact.  
-> - You can view this setting by querying the **[`genesis_config`](/docs/develop/front-end/rpc#genesis-config)** RPC endpoint and searching for `epoch_length`.
-> - Nodes garbage collect blocks after 5 epochs unless they are [archival nodes](/docs/roles/integrator/exchange-integration#running-an-archival-node).
+> 一个 **纪元** 是网络中的验证者恒定的时间单位.
+> 
+> - NEAR主网和测试网都有~12小时或者确切的说43,200秒的纪元时间间隔。  
+> - 您可以通过查询**[`genesis_config`](/docs/develop/front-end/rpc#genesis-config)** RPC端点和搜索epoch_length来查看此设置值。
+> - 节点垃圾在5个epoch之后收集块，除非它们是 [归档节点](/docs/roles/integrator/exchange-integration#running-an-archival-node).
 
 **HTTPie Query:**
 
@@ -48,8 +48,7 @@ http post https://rpc.mainnet.near.org jsonrpc=2.0 id=dontcare method=EXPERIMENT
 }
 ```
 
-You can learn more about how epoch's are used to manage network validation in the [Validator FAQ](/docs/validator/staking-faq#what-is-an-epoch).
-
->Got a question?
-<a href="https://stackoverflow.com/questions/tagged/nearprotocol">
-  <h8>Ask it on StackOverflow!</h8></a>
+您可以在[Validator FAQ](/docs/validator/staking-faq#what-is-an-epoch)中了解有关如何使用纪元来管理网络验证的更多信息。
+> 有任何问题?
+  <a href="https://stackoverflow.com/questions/tagged/nearprotocol">
+  <h8>在StackOverflow上提问</h8></a>
