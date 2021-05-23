@@ -1,28 +1,28 @@
 ---
 id: overview
-title: Overview
-sidebar_label: Overview
+title: 概述
+sidebar_label: 概述
 ---
 
-![NEAR terminology](/docs/assets/near-terminology.png)
+![NEAR 术语](/docs/assets/near-terminology.png)
 
-- **Blockchain**: an incentivized, distributed, permanent, irrefutable record of computation and data
-- **Transaction**: a cryptographically signed request for work on the blockchain made up of one or more Actions
-- **Action**: one of 8 types of primitive work (ie. CreateAccount, DeployContract, FunctionCall) that can be completed by the NEAR platform
-- **Storage**: the database (key-value store) maintained by the blockchain and available to contracts for state management
-
----
-
-- **Block**: a unit of consensus among validators that includes processed transactions
-- **Chunk**: a portion of the blockchain which is processed on a single node (one chunk per node per block)
-- **Epoch**: a unit of time during which validators of the network remain constant
+- **区块链**：一种带有经济激励的、分布式的、永久的、不可更改的计算和数据记录。
+- **交易**：对区块链上工作的加密签名请求，工作由一个或多个操作组成。
+- **操作**：NEAR平台可以完成的8种基本工作之一（比如，创建账户、部署合约、调用合约）。
+- **存储**：由区块链维护的数据库(键-值存储)，可供合约进行状态管理。
 
 ---
 
-- **Validator**: a person or company that maintains a computer which processes transactions on the blockchain using Proof of Stake consensus
-- **Node**: a computer, run by a validator, that participates on the network and follows one or more shards
-- **Shard**: a piece of the blockchain which operates in parallel to store data, process transactions and achieve consensus. (note: there may be one shard or there may be many, depending on how far the chain has scaled)
+- **区块**：验证者之间所达成的共识的单位，包括已处理的交易。
+- **块**：在单个节点上处理的区块链的部分（每个节点每个区块上有一个块）。
+- **纪元**：网络中的验证者们保持一致不变的一个时间单位。
 
 ---
 
-- **Genesis**: the launch of the chain which includes at least all validators for the first epoch
+- **验证者**：维护一台使用利益证明共识(Proof of Stake consensus) 来处理区块链交易的计算机的个人或公司。
+- **节点**：由验证者运行的计算机，在网络上参与，跟随一个或多个碎片。
+- **碎片**：区块链中的一块，它以并行方式运行，以存储数据、处理交易并达到共识。(注：可能有一个碎片，也可能有许多碎片，取决于链的扩展程度)
+
+---
+
+- **起源**：链的启动，其中至少包括第一个纪元的所有验证者。

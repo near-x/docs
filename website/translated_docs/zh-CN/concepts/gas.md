@@ -1,8 +1,9 @@
 ---
 id: gas
-title: 燃气
-sidebar_label: 燃气
+title: Gas
+sidebar_label: Gas
 ---
+
 当你调用NEAR区块链来更新或更改数据时，区块链基础设施的运营方会产生一些成本。可能造成的结果是，某些计算机在某处处理你的请求，而运营这些计算机的[验证者](/docs/validator/staking-overview)则花费了大量的资金来保持这些计算机的运行。
 
 与其他可编程区块链一样，NEAR通过收取 _交易费_ (也称为 _gas费_ )来补偿这些人。

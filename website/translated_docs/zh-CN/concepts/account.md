@@ -1,135 +1,129 @@
 ---
 id: account
-title: Account
-sidebar_label: Account
+title: 账户
+sidebar_label: 账户
 ---
 
-NEAR uses human readable account IDs instead of a public key hash. For a 20-minute video explanation, see [this Lunch and Learn](https://www.youtube.com/watch?time_continue=18&v=2_Ekz7w6Eo4&feature=emb_logo) on YouTube.
+NEAR使用人类可读的帐户ID，而不是公钥哈希(public key hash)。你可以查看这个YouTube上的这个 [“边吃边学”小视频(Lunch and Learn)](https://www.youtube.com/watch?time_continue=18&v=2_Ekz7w6Eo4&feature=emb_logo) ，里面有20分钟左右的视频解说。
 
-## Account ID Rules
+## 账户ID规则
 
-- minimum length is 2
-- maximum length is 64
-- `Account ID` consists of `Account ID parts` separated by `.`
-- `Account ID part` consists of lowercase alphanumeric symbols separated by either `_` or `-`.
+- 最小长度为2位字符
+- 最大长度为64位字符
+- `Account ID (账户ID)` 由 `Account ID parts (账户ID部件)` 组成，中间用`.`隔开
+- `Account ID parts (账户ID部件）` 由小写字母和数字组成，用`_`或`-`隔开。
 
-Account names are similar to a domain names. Anyone can create a top level account (TLA) without separators, e.g. `near`. Only `near` can create `alice.near`. And only `alice.near` can create `app.alice.near` and so on. Note, `near` can NOT create `app.alice.near` directly.
+帐户名(Account name)类似于域名。任何人都可以创建没有分隔符的顶级帐户(top level account，TLA)，例如`near`。但只有`near`才能创建`alice.near`，只有`alice.near`才可以创建`app.alice.near`，以此类推。请注意，`near`是不能直接创建`app.alice.near`的。
 
-Regex for a full account ID, without checking for length: `^(([a-z\d]+[\-_])*[a-z\d]+\.)*([a-z\d]+[\-_])*[a-z\d]+$`
-
----
-
-## Top Level Accounts
-
-Top level account names (TLAs) are very valuable as they provide root of trust and discoverability for companies, applications and users. To allow for fair access to them, the top level account names that are shorter than `MIN_ALLOWED_TOP_LEVEL_ACCOUNT_LENGTH` characters (32 at time of writing) will be auctioned off.
-
-Specifically, only `REGISTRAR_ACCOUNT_ID` account can create new top level accounts that are shorter than `MIN_ALLOWED_TOP_LEVEL_ACCOUNT_LENGTH` characters. `REGISTRAR_ACCOUNT_ID` implements a standard `Account Naming` interface which allow it to create new accounts.
-
-We are not going to deploy the `registrar` auction at launch. Instead we will allow it to be deployed by the Near Foundation at some point in the future.
-
-Currently all `mainnet` accounts use a `near` top level account name (ex `example.near`) and all `testnet` accounts use a `testnet` top level account (ex. `example.testnet`).
+一个完整的账户ID (如果不管长度限制的话)，它的正则表达式是这样的： `^(([a-z\d]+[\-_])*[a-z\d]+\.)*([a-z\d]+[\-_])*[a-z\d]+$`
 
 ---
 
-## Subaccounts
+## 顶级账号 (Top Level Accounts)
 
-As stated before, account names on NEAR follow a similar naming pattern to that of website domains with similar rules. Accounts can create as many subaccounts as they wish, and only the parent account can create a subaccount. For example, `example.near` can create `subaccount1.example.near` and `subaccount2.example.near` but CAN NOT create `sub.subaccount.example.near`. Only `subaccount.example.near` can create `sub.subaccount.example.near` in the same way `test.near` can NOT create `subaccount.example.near`. Only the direct parent account has permission to create a subaccount.
+顶级帐户名(TLAs)非常有价值，因为它们为公司、应用程序和用户提供了信任和接触的基础。为了公平地使用它们，小于`MIN_ALLOWED_TOP_LEVEL_ACCOUNT_LENGTH (顶级账户名允许的最小字符长度)` (目前是32)的顶级帐户名将会被竞价出售。
 
-Try it out using our [`near-cli`](/docs/tools/near-cli) command, [`near create-account`](/docs/tools/near-cli#near-create-account), in your terminal.
+具体来说，只有`REGISTRAR_ACCOUNT_ID (域名注册商账户ID)`可以创建小于`MIN_ALLOWED_TOP_LEVEL_ACCOUNT_LENGTH (顶级账户名允许的最小字符长度)`的新顶级帐户。`REGISTRAR_ACCOUNT_ID (域名注册商账户ID)`有一个标准的`Account Naming (帐户命名)`接口(interface)，可用于创建新的帐户。
+
+我们不准备在一开始就实行`registrar (域名注册商)`拍卖。我们计划在未来的某个时间点，再由 Near 基金会实行拍卖。
+
+目前，所有的`mainnet (主网)`账户都使用了`near`顶级账户名（如：`example.near`）, 所有`testnet (测试网)`帐户都使用了`testnet`顶级帐户（如：`example.testnet`)。
 
 ---
 
-## Dev Accounts
+## 子账号 (Subaccounts)
 
-Dev accounts are special accounts made automatically by tools like near-cli and the wallet to help you automate testing and deploying of contracts. Since every account can have a contract, but re-deploying contracts DOES NOT create new state, you often want to deploy to a completely different account when testing.
+如上所述，NEAR上的帐户名称与网站域名的命名模式相似，命名规则也相似。帐户可以创建任意数量的子帐户，且只有母帐户可以创建子帐户。例如：
+`example.near`可以创建`subaccount1.example.near`和`subaccount2.example.near`，但**不能**创建`sub.subaccount.example.near`，因为只有 `subaccount.example.near` 可以创建`sub.subaccount.example. near`。同样的，`test.near`不能创建`subaccount.example.near`，只有它的直接母帐户有权限创建这个子帐户。
 
-> **Note:** When deploying multiple test examples and creating new dev accounts, you will need to "Sign Out" of the NEAR Wallet on any `localhost` examples and "Sign In" again! Signing in adds an access key to your account and saves the private key in localStorage so the app can call contract methods without asking for approval again. BUT! There's a chance you're now trying to interact with a contract that is deployed a completely different dev account.
+试着在终端使用我们的[`near-cli`](/docs/tools/near-cli)命令：[`near create-account`](/docs/tools/near-cli#near-create-account)，创建账号吧。
 
-### How to create a dev account
+---
 
-- When you the command `dev-deploy` from near-cli, it looks for a file here `/neardev/dev-account` with the dev account ID to deploy to.
+## 开发账户 (Dev Accounts)
 
-- If it doesn't find one, it creates a dev-account (using our cloud helper service for creating test accounts) and then creates the folder for you with the `dev-account` file.
+开发帐户是通过 `near cli (NEAR命令行工具)` 和 `wallet (NEAR钱包)`等工具自动生成的一种特殊帐户，可以帮你将测试和部署合约的过程自动化。由于每个帐户都可以有一个合约，但重新部署合约**并不会**创建新的状态(state)，因此在测试合约时，你往往会想要将合约部署到不同的帐户中。
 
-- It will also create the associated credentials, a public and private keypair here: `~/.near-credentials/default/[dev-account-id].json`. Go ahead and try it:
+> **请注意：** 当部署多个测试示例并创建新的开发帐户时，你需要先在示例的`本地(localhost)` “登出” NEAR钱包，然后再 “登录” ！每一次登录会给你的帐户添加一个访问密钥，将私钥保存在本地，这样你的应用程序就可以直接调用合约而无需再次请求授权。**但是**！也有一种可能是你现在正尝试与一个部署在完全不同的开发帐户上的合约进行交互。
 
+### 如何创建开发帐户？
+
+- 当你在 NEAR命令行工具(near-cli) 中运行 `dev-deploy` 命令，它会去查找`/neardev/dev-account`底下的一个文件，这个文件包含了将要用来部署合约的开发账户ID。
+
+- 如果找不到这样一个文件，它会创建一个开发帐户（使用我们的云助手服务创建测试帐户），然后为你创建这个包含了`开发帐户(dev-account)`文件的文件夹。
+
+- 它还将在这个路径下创建相关的凭证(credentials)——一个公私密钥对(a public and private keypair)： ``~/.near-credentials/default/[dev-account-id].json``。试试这条命令:
 ```
 code ~/.near-credentials/default/[dev-account-id].json
 ```
+- 在这个路径` /neardev/dev-account`（需将"dev-account-id"替换为当前的开发账号id) 下，打开json文件，这里可以选择你自己偏好的编辑器(如VS Code)。
 
-- Replace dev-account-id with the account ID here `/neardev/dev-account` and open the json file up in your editor of choice (code for VS Code).
-
-### How do I get another one
-
-- Delete the folder `/neardev` and run `near dev-deploy [wasmFile default="/out/main.wasm"]` and you'll see a new dev account was created in `neardev` and credentials are also stored for you.
-
-### Ok I have a dev account, so what?
-
-- These accounts and associated keypairs found in the json file are super useful for automating your testing.
-
-- Many examples in the NEAR ecosystem use some sort of `yarn dev:deploy` script that deploys contracts and maybe even runs some tests. It's important to know how these accounts are created, where their credentials are stored and how you can use them yourself.
+### 如何再创建一个开发账户？
+- 删除文件夹` /neardev` 并运行` near dev-deploy[ wasmFile default="/out/main.wasm"]` ，你就会看到` neardev` 中创建了一个新的开发帐户，并且为你保存了相关的凭证(credentials)。
+### 现在，我有一个开发账户了，然后呢？
+- json文件中的这些帐户和相关密钥对对你自动化整个测试过程非常有帮助。
+- NEAR生态系统中的许多例子都用到了 `yarn dev:deploy` 脚本，来部署合约、甚至运行一些测试。了解这些帐户是如何创建的、它们的凭证(credentials)存储在哪里、你可以如何使用它们，十分重要。
 
 ---
 
-## Access Keys
+## 访问密钥 (Access Keys)
 
-NEAR uses human readable account IDs instead of a public key hash as the account identifier and many keys ([public/private key pairs](https://en.wikipedia.org/wiki/Public-key_cryptography)) can be created for each account that we call "Access Keys". Currently, there are two types of access keys; `FullAccess` & `FunctionCall`.
+NEAR使用了可读性高的帐户ID，而非公钥哈希。而为每个账号所创建的多个密钥 ([公/私密钥对,public/private key pairs](https://en.wikipedia.org/wiki/Public-key_cryptography))，我们就称之为“访问密钥(Access Keys)”。目前，有两种类型的访问密钥： `FullAccess(完全访问)`和 `FunctionCall(函数调用)`。
 
-### Full Access Keys
+### 完全访问密钥 (Full Access Keys)
 
-As the name suggests, `FullAccess` keys have full control of an account similar to having administrator privileges on your operating system. With this key you have the ability to perform any of the eight action types on NEAR without any limitations.
+顾名思义，`FullAccess(完全访问)` 对帐户具有完全的控制权，类似于对你的操作系统具有管理员权限。使用这个密钥，你可以在NEAR上完成以下8种操作，而不受任何限制：
 
-1) Create Account
-2) Delete Account
-3) Add Key
-4) Delete Key
-5) Deploy Contract
-6) Function Call
-7) Transfer Ⓝ
-8) Stake Ⓝ _(for validators)_
+1) 创建帐户
+2) 删除账户
+3) 添加密钥
+4) 删除密钥
+5) 部署合约
+6) 调用函数
+7) Ⓝ转账
+8) Ⓝ质押（仅限于验证节点validators）
 
-See our [action specifications](https://nomicon.io/RuntimeSpec/Actions.html) section for more details.
+更多细节可以请查看 [操作说明(action specificitions)](https://nomicon.io/RuntimeSpec/Actions.html) 。
 
-### Function Call Keys
+### 函数调用密钥 (Function Call Keys)
 
-A `FunctionCall` key is unique as it only has permission to call a smart contract's method(s) that _do not_ attach Ⓝ as a deposit (i.e. payable functions). These keys have the following three attributes:
+`FunctionCall(函数调用)` 密钥都是独一无二的，因为它只有权调用某一个或者某几个收取Ⓝ费用的智能合约方法 (即“需要付费的函数”，payable functions)。这种密钥具有以下三个属性：
 
-1) `allowance` - amount of Ⓝ loaded onto the key to pay for gas fees  _(0.25 default)_
-2) `receiver_id` - contract the key is allowed to call methods on _(required)_
-3) `method_names` - contract methods the key is allowed to call _(optional)_
+1) `allowance (限额)` -加载到密钥上、用于支付合约调用费用的Ⓝ数额 _（默认为0.25)_
+2) `receiver_id (接收者ID)` -密钥允许调用的合约的位置 _（必须项）_
+3) `method_names (方法名)` -密钥允许调用的合约的方法名 _（可选项）_
 
-> **Note:** If no specific method names are specified, all methods may be called.
+> **请注意:** 如果没有指定特定的方法名，所有的方法都可以被调用。
 
-The easiest way to create a `FunctionCall` key with your dApp is to prompt users to sign in using [NEAR Wallet](https://wallet.testnet.near.org/) via `near-api-js`'s [`WalletConnection`](https://github.com/near/near-api-js/blob/0aefdb01a151f7361463f3ff65c77dbfeee83200/lib/wallet-account.js#L13-L139). This prompts users to authorize access and upon approval a `FunctionCall` key is created. This key is only allowed to call methods on the contract that redirected the user to NEAR Wallet with a default allowance of 0.25 Ⓝ to cover gas costs for transactions. As non-monetary transactions are performed with this key, you will notice the allowance decreases and once 0.25 Ⓝ is burnt a new key will need to be created. If a request is made to transfer _ANY_ amount of tokens with a `FunctionCall` key, the user will be redirected back to wallet to authorize this transaction. You can see this functionality in action by trying out [NEAR Guestbook](https://near-examples.github.io/guest-book/).
+在dApp中，创建 `函数调用` 密钥最简单的方法，就是通过 `NEAR-api-js` 的 [钱包连接](https://github.com/near/near-api-js/blob/0aefdb01a151f7361463f3ff65c77dbfeee83200/lib/wallet-account.js#L13-L139) 登录 [NEAR钱包](https://wallet.testnet.near.org/) 时的登录对话框。这个登录对话框向用户请求访问授权，一经授权，就会创建一个 `函数调用` 密钥。这个密钥，只允许调用将用户重定向到NEAR钱包的合约的方法，并附带有默认为0.25Ⓝ的金额，用于涵盖交易费用。当使用此密钥执行非货币性交易时，你会发现限额(allowance)在减少，一旦0.25Ⓝ被消耗完，你将需要创建一个新的密钥。如果使用 `函数调用` 密钥来请求转账**任意**数量的代币(token)，用户将被重定向到钱包以授权此交易。你可以跟着[NEAR 用户手册(Guestbook)](https://near-examples.github.io/guest-book/)试一试，以更好地了解和应用这项功能。
 
-Another way to create a `FunctionAccess` key is to use `near-cli`'s [`add-key`](/docs/tools/near-cli#near-add-key) command. With `near-cli` you can be more specific with your `FunctionCall` key by only allowing it to call specific contract methods as well as make adjustments to the allowance amount.
+创建 `函数调用` 密钥的另一种方法是使用 `near cli (NEAR命令行工具)` 的 [`add-key`(添加密钥)](/docs/tools/near-cli#near-add-key) 命令。使用 `near-cli` ，你可以更精准地使用 `函数调用` 密钥，比如只允许它调用一个特定的合约方法，或者调整付费限额(allowance amount)。
 
-`FunctionCall` access keys are a powerful usability feature of NEAR opening up many possibilities. Not only can you eliminate the need for users to authorize small transactions over and over again but you could even allow a user to interact with the blockchain without ever having to create an account. This can be accomplished by having the dApp automatically create a `FunctionCall` key that points to itself with a single click on your front-end allowing anyone to interact with your dApp seamlessly.
+ `函数调用` 访问密钥是一个非常强大的NEAR功能，它开启了许多可能性。用户不仅不再需要反复授权小额交易，甚至允许用户无需创建帐户即可与区块链进行交互（实现方式是：让dApp自动创建一个 `函数调用` 密钥，在前端页面点击操作使密钥指向它自己，就可以让任何人与你的dApp无缝交互）。
+
+---
+## 与以太坊的区别 (Compared to Ethereum)
+
+如果你熟悉以太坊开发，那么可以快速了解一下二者帐户的区别。下图总结了一些关键的区别：
+
+![Ethereum 账户 vs NEAR 账户](/docs/assets/accounts-compare-ethereum-v-near.png)
+
+_图片来源：medium.com/@clinder_
 
 ---
 
-## Compared to Ethereum
+## 账户与合约 (Accounts and Contracts)
 
-If you're familiar with development on Ethereum, it's worth making a quick note about how accounts are different. The image below summarizes some key differences.
+每一个NEAR账户只能持有1个智能合约。对于应该需要组织多个合约的应用程序，您可以创建“主帐户（master account）”也就是用户帐户下的“子帐户(sub accounts)”。子帐户的名称包含 . 符号，就像`contract1.user-A-account`、`contract2.user-A-account` 等。NEAR不允许直接创建名称中带有 . 的帐户，这样，这些带 . 的帐户便只能由 `user-A-account` 创建，就仿佛用户帐户是一个顶级域名一样(就如同你所熟悉的模式中的 `your-company.com`)。
 
-![Ethereum vs NEAR accounts](/docs/assets/accounts-compare-ethereum-v-near.png)
-
-_image source: medium.com/@clinder_
-
----
-
-## Accounts and Contracts
-
-Each NEAR account can only hold 1 smart contract. For applications where users should be able to organize multiple contracts you can create "subaccounts" whose "master account" is the user account. The format of a subaccount would include a dot in the name like `contract1.user-A-account`, `contract2.user-A-account`, etc. NEAR restricts the creation of accounts with a dot in the name such that these accounts can only by created by `user-A-account`, as if the user account is a top-level domain like `your-company.com` if you're familiar with this model.
-
-Using NEAR CLI you could deploy new contracts to your account like this:
+使用NEAR CLI (NEAR命令行工具)，你可以像这样将新合约部署到你的帐户上：
 
 ```bash
 near deploy --wasm-file path/to/contract.wasm --account-id contractAccount.developerAccount.testnet --master-account yourAccount.testnet
 ```
 
-Note for this to work you will need to login with NEAR CLI and authorize it to use the master account (`YOUR_ACCOUNT.testnet`) on your behalf. Learn more about [NEAR CLI here](/docs/tools/near-cli)
+请注意，要正确运行上述命令，你需要先登录 NEAR CLI 并授权它使用你的主帐户(master account,`YOUR_ACCOUNT.testnet`)。点击这里可查看更多关于 [NEAR CLI](/docs/tools/near-cli) 的信息。
 
-> Got a question?
-> <a href="https://stackoverflow.com/questions/tagged/nearprotocol">
-> <h8>Ask it on StackOverflow!</h8></a>
+> 遇到问题了吗？
+> <a href="https://stackoverflow.com/questions/tagged/nearprotocol">在 StackOverflow 上提问吧！</a>
+

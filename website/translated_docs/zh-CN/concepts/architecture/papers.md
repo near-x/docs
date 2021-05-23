@@ -1,22 +1,22 @@
 ---
 id: papers
-title: Papers
-sidebar_label: Papers
+title: 文章
+sidebar_label: 文章
 ---
 
-Join us as we dive deep into our technology.
+加入我们，和我们一起深入探索我们的技术吧。
 
-[The NEAR White Paper](https://near.org/papers/the-official-near-white-paper/)  \
-*This document describes the approach NEAR takes to designing and implementing the core technology of its system.*
+[NEAR白皮书](https://near.org/papers/the-official-near-white-paper/)  \
+*这个文档描述了NEAR设计、实现其系统的核心技术的方法。*
 
-[Economics in a Sharded Blockchain](https://near.org/papers/economics-in-sharded-blockchain/)  \
-*Incentives are a crucial part of any decentralized protocol. In this paper, we review the specific economic decisions that must be made, and the logic behind them.*
+[分片区块链中的经济学](https://near.org/papers/economics-in-sharded-blockchain/)  \
+*在任何去中心化的协议中，激励都是一个至关重要的部分。在这篇文章中，我们回顾了那些必须要做的经济决策及其背后的逻辑。*
 
-[Sharding Design: Nightshade](https://near.org/papers/nightshade/)  \
-*This document outlines the general approach to blockchain sharding, the major problems that need to be overcome, including state validity and data availability problems, and presents Nightshade, the solution NEAR Protocol is built upon that addresses those issues.*
+[分片设计: 夜影分片协议（Nightshade）](https://near.org/papers/nightshade/)  \
+*这个文档列举了区块链分片的主要方法、需要克服的主要困难（包括状态有效性、数据可用性等问题），夜影分片协议（Nightshade）——NEAR协议正是基于这个解决方案搭建起来、并克服这些困难。*
 
-[Fast Finality: Proof of Space-Time](https://near.org/papers/proof-of-space-time/)  \
-*We present a design for a fork choice rule, Sybil resistance mechanism and finality gadget that collectively provide fast finality, resistance to long range attacks, and discourage pooling. The design is based on both proof of stake and proof of space time, and uses a finality gadget similar to Casper FFG.*
+[快速的最终确认(Finality): 时空证明(Proof of Space-Time)](https://near.org/papers/proof-of-space-time/)  \
+*我们提出了一个关于分叉选择原则(fork choice rule)、女巫抗力机制(Sybil resistance mechanism)和最终确定性工具(finality gadget)的设计，可以从整体上(collectively)提供快速的最终确认(finality)、抵御长程攻击(long range attacks)、并抑制池化(pooling)。这个设计基于质押证明(proof of stake)与时空证明(proof of space time)，并使用了一个与Casper FFG协议类似的最终确定性工具(finality gadget)。*
 
-[NEAR Randomness](https://near.org/papers/randomness/)  \
-*We present a randomness beacon scheme that is unpredictable and unbiasable for as long as more than 1/3 of participants follow the protocol, is live for as long as 2/3 of participants follow the protocol, doesn’t depend on verifiable delay functions and doesn’t require distributed key generation.*
+[NEAR随机性](https://near.org/papers/randomness/)  \
+*我们提出了一个随机信标(randomness beacon)模式：只要超过1/3的参与者遵循协议，它就将是不可预测(unpredictable)、不会有偏见的(unbiasable)；只要2/3的参与者遵循协议，就将是实时生效的(live)；这个范式不依赖于可验证延迟函数(verifiable delay functions)，也不需要生成分布式密钥。*
